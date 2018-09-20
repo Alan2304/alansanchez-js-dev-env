@@ -4,9 +4,14 @@
   "description": "JavaScript development environment Pluralsight course by Cory House",
   "scripts": {
     "prestart": "babel-node buildScripts/startMessage.js",
-    "start": "npm-run-all --parallel open:src share",
+    "start": "npm-run-all --parallel open:src lint:watch start-mockapi",
     "open:src": "babel-node buildScripts/srcServer.js",
-    "share": "lt --port 3000"
+    "lint": "esw webpack.config.* src buildScripts --color",
+    "lint:watch": "npm run lint -- --watch",
+    "share": "lt --port 3000",
+    "generate-mock-data":"babel-node buildScripts/generateMockData",
+    "prestart-mockapi":"npm run generate-mock-data",
+    "start-mockapi": "json-server --watch src/api/db.json --port 3001"
   },
   "author": "Cory House",
   "license": "MIT",
